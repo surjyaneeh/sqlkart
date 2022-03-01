@@ -51,7 +51,8 @@ INSERT INTO bms.borrows (cust_id, bank_id,amount,b_date, duration, b_type) VALUE
 (5,7,106700,'2019-06-12', 30, 'Home'),(6,8,80000,'2021-03-12', 19, 'Car'),(7,8,100000,'2018-03-12', 10, 'Personal'),(8,9,100000,'2016-03-10', 25, 'Personal'),
 (8,10,109000,'2018-09-12', 15, 'Car'),(10,10,100000,'2018-03-05', 9, 'Personal');
 
-/* Query a */ 
+/* List the details of the customers who have borrowed more than rupees 10 lakhs from
+the Central Bank in Kolkata. */ 
  SELECT * FROM customer   where cust_id in(
                                           select cust_id from borrows where amount>100000 and br_id in
     (select bank_id from bank where bname='central bank' and bcity='Kolkata'));
@@ -60,7 +61,8 @@ cust_id	cname	age	cust_type
 1	   Thomas	20	Corporate
  */
 
-/* Query b */ 
+/* List the names and ages of customers who have borrowed from the Indian Bank on
+12/03/18 for a duration of 15 years or more. */ 
  select * from customer WHERE cust_id in
               (select cust_id from borrows where duration=15 and b_date='2018-03-12' and bank_id in
 			 (select bank_id from bank where bname='Indian bank'));
@@ -70,7 +72,7 @@ cust_id, cname, age, cust_type
 4	   Kimbra	39	Priority 
 */
 
-/* Query c */ 
+/* List the names of all corporate customers who have not taken any car loan. */ 
  SELECT c.cname
  from customer c 
  join borrows b on c.cust_id=b.cust_id 
@@ -80,7 +82,7 @@ cname
 Crafford
  */
 
-/* Query d */ 
+/* List the details of the customer who has the third-highest borrowed amount. */ 
 SELECT c.cust_id,c.cname,c.age,c.cust_type 
  FROM customer c join borrows b on c.cust_id=b.cust_id
  order by b.amount desc limit 1 offset 2;
@@ -89,7 +91,8 @@ cust_id	cname	age	cust_type
 1	  Thomas	20	Corporate
 */
 
-/* Query e */ 
+/* List the total loan amount (for all customers) for the different banks located in
+Kolkata. */ 
 SELECT sum(amount) as bor_sum_kol FROM borrows br
 JOIN bank b
 on br.bank_id = b.bank_id
@@ -99,7 +102,7 @@ bor_sum_kol
 628000
 */
 
-/* Query f */ 
+/* List the loan details of the youngest customer. */ 
  SELECT * FROM borrows
  where cust_id in
                 (select cust_id from customer
@@ -110,7 +113,7 @@ br_id	cust_id	bank_id	amount	b_date	duration	b_type
 3	    1	    2	  100000	2020-03-10	10	    Car
 */
                  
-/* Query g */ 
+/* List the names of all customers who are in their 60s. */ 
  SELECT cname FROM customer where age  between 60 and 70;
 /*output
 	cname
