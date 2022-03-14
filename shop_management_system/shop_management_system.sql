@@ -87,24 +87,26 @@ anita
 */
 
 
-/*2 d */
+/* Display the details of the customers who have NOT ordered more than 2 items in the
+last 6 months. */
 SELECT * FROM customers where cid not in                 
-				(select cid from orders where ord_date between'2021-06-20'and '2022-01-02' 
+				(select cid from orders where ord_date between'2021-08-13'and '2022-03-13' 
                   group by cid having count(*)>2);
 /*
-cid	cname	city	ph_no
-1	neha	kolkata	543210
-2	shreya	kolkata	543120
-3	sayani	kolkata	542310
-4	anita	kolkata	453210
-5	swarup	asansol	643210
-6	surjyanee	asansol	986754
-7	koushanee	asansol	978650
-8	nidhi	asansol	893210
+cid	cname	    city         ph_no
+1	neha	   kolkata	543210
+2	shreya	   kolkata	543120
+3	sayani	   kolkata	542310
+4	anita	   kolkata	453210
+5	swarup	   asansol	643210
+6	surjyanee  asansol	986754
+7	koushanee  asansol	978650
+8	nidhi	   asansol	893210
 */
 
 
-/*2 e */
+/* Display the list of cities sorted by their number of orders. (City with the highest
+number of orders should top the list) */
 select c.city,count(o.order_no)s   from customers c 
 LEFt join orders o on c.cid=o.cid  
 LEFT join items i on i.ino=o.ino 
@@ -116,7 +118,8 @@ asansol	7
  */
 
 
-/*2 f */
+/* Display the name of the city where customers ordered the highest number of
+electronics. */
 select c.city,count(c.city) s from customers c  
 join orders o on c.cid=o.cid  
 join items i on i.ino=o.ino where i.itype='electronics' 
