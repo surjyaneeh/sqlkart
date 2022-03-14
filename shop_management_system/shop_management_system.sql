@@ -54,7 +54,7 @@ INSERT INTO orders(ino, cid, ord_date, qty) VALUES
 (10,6,'2020-10-09',2), (11,7,'2022-01-19',1), (12,8,'2021-05-14',5)
 ;
 
-/*2 a */
+/* For each item type, display the item with the lowest price. */
 SELECT min(price) as price,iname  FROM items group by itype;
 /* 
 price	iname
@@ -64,7 +64,7 @@ price	iname
 */
 
 
-/*2 b */
+/* Display the name of the customer who has ordered the highest-priced item. */
 SELECT c.cname,i.price from customers c 
 join orders o on c.cid=o.cid 
 join items i on o.ino=i.ino  
@@ -77,7 +77,7 @@ surjyanee	45000
 */
 
 
-/*2 c */
+/* Display the names of the customers who have ordered the item “mobile phone”. */
 select cname from customers where cid in
 (select cid from orders where ino in(select ino from items where iname='mobile phone'));
 /* 
